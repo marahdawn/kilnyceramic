@@ -1,0 +1,40 @@
+services:
+  php:
+    image: php:8.2-apache
+    container_name: kilnyceramics-php
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: kilnyceramics-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kilnyceramics
+      MYSQL_USER: kilnyuser
+      MYSQL_PASSWORD: kilnypass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: kilnyceramics-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
+
+volumes:
+  db_data:

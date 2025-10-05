@@ -1,5 +1,4 @@
-import { startStimulusApp } from '@symfony/stimulus-bundle';
+import './styles/app.css';
 
-const app = startStimulusApp();
-// register any custom, 3rd party controllers here
-// app.register('some_controller_name', SomeImportedController);
+// Any other scripts you use can go here.
+console.log('Bootstrap loaded!');
